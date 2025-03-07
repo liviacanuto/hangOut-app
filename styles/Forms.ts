@@ -81,8 +81,12 @@ export const formStyle = StyleSheet.create({
 
 export const labelStyle = StyleSheet.create({
   area: {
+    height: inputHeight,
+
+    justifyContent: 'center',
     position: 'absolute',
     left: fieldSpace,
+
     zIndex: 3,
   },
 
@@ -143,12 +147,11 @@ export const inputStyle = StyleSheet.create({
 
 export const inputStyleData = {
   default: {
-    top: inputHeight / 2 - fontSizeBase / 2,
     borderColor: palette.colors.border,
   },
 
   focused: {
-    top: (fontSizeBase / 2) * -1,
+    top: -20,
     borderColor: palette.colors.main,
   },
 };
