@@ -4,7 +4,11 @@
     "strict": true,
     "baseUrl": "./",
     "paths": {
+      "@animations/*": ["animations/*"],
+      "@assets/*": ["assets/*"],
+      "@components/*": ["components/*"],
       "@screens/*": ["screens/*"],
+      "@styles/*": ["styles/*"]
     }
   },
   "exclude": ["node_modules", "dist"]
