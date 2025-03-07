@@ -5,23 +5,26 @@ import Animated, { useSharedValue } from 'react-native-reanimated';
 import React, { useState, RefObject } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-const keyboardTypeMap: Record<'email' | 'password' | 'text', KeyboardTypeOptions> = {
-  email: 'email-address',
-  password: 'default',
-  text: 'default',
-};
+type InputTypes = 'email' | 'password' | 'text';
 
 type Props = {
   id: RefObject<TextInput>;
   label: string;
   placeholder: string;
-  type: 'email' | 'password' | 'text';
+  type: InputTypes;
   value: string;
   setValue: (value: string) => void;
   sendTo?: RefObject<TextInput>;
+  hint: string;
 };
 
-const Input: React.FC<Props> = ({ id, label, placeholder, type, value, setValue, sendTo }) => {
+const keyboardTypeMap: Record<InputTypes, KeyboardTypeOptions> = {
+  email: 'email-address',
+  password: 'default',
+  text: 'default',
+};
+
+const Input: React.FC<Props> = ({ id, label, placeholder, type, value, setValue, sendTo, hint }) => {
   const [secure, setSecure] = useState(true);
   const focused = useSharedValue(0);
 
@@ -33,7 +36,7 @@ const Input: React.FC<Props> = ({ id, label, placeholder, type, value, setValue,
   );
   const top = verticalTranslation(
     focused,
-    inputStyleData.default.top,
+    0,
     inputStyleData.focused.top,
     focused && value !== '',
     inputStyleData.focused.top
@@ -53,6 +56,9 @@ const Input: React.FC<Props> = ({ id, label, placeholder, type, value, setValue,
 
       <Animated.View style={[inputStyle.area, borderColor]}>
         <TextInput
+          accessible
+          accessibilityLabel={label}
+          accessibilityHint={hint}
           ref={id}
           style={[inputStyle.content]}
           value={value}
@@ -67,7 +73,14 @@ const Input: React.FC<Props> = ({ id, label, placeholder, type, value, setValue,
         />
 
         {type === 'password' && (
-          <TouchableOpacity style={[inputStyle.iconArea]} onPress={() => setSecure(!secure)}>
+          <TouchableOpacity
+            accessible
+            accessibilityRole='button'
+            accessibilityLabel='Alternar visibilidade da senha'
+            accessibilityHint={secure ? 'Toque para mostrar o texto da senha.' : 'Toque para ocultar o texto da senha.'}
+            style={[inputStyle.iconArea]}
+            onPress={() => setSecure(!secure)}
+          >
             {secure ? (
               <Ionicons style={[inputStyle.icon]} name='eye-off-outline' />
             ) : (

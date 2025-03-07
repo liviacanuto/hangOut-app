@@ -18,13 +18,19 @@ const LoginScreen = () => {
       <StripedBackground />
 
       <ScrollView
-        showsVerticalScrollIndicator={true}
-        keyboardShouldPersistTaps='always'
         style={[formStyle.scroll]}
+        keyboardShouldPersistTaps='always'
         contentContainerStyle={[formStyle.scrollContent]}
       >
         <View style={[formStyle.area]}>
-          <Text style={[formStyle.title, formStyle.space]}>LOGIN</Text>
+          <Text
+            accessible
+            accessibilityRole='text'
+            accessibilityLabel='Login'
+            style={[formStyle.title, formStyle.space]}
+          >
+            LOGIN
+          </Text>
 
           <View style={[formStyle.field, formStyle.space]}>
             <Input
@@ -35,6 +41,7 @@ const LoginScreen = () => {
               value={email}
               setValue={setEmail}
               sendTo={passwordRef}
+              hint='Digite seu e-mail para login.'
             />
           </View>
 
@@ -46,32 +53,54 @@ const LoginScreen = () => {
               label='Senha'
               placeholder='********************'
               setValue={setPassword}
+              hint='Digite sua senha. Você pode alternar a visibilidade usando o botão ao lado.'
             />
-            <TouchableOpacity style={[formStyle.forgetPasswordArea]}>
+            <TouchableOpacity
+              accessible
+              accessibilityRole='button'
+              accessibilityLabel='Esqueceu a senha?'
+              accessibilityHint='Toque para recuperar sua senha.'
+              style={[formStyle.forgetPasswordArea]}
+            >
               <Text style={[formStyle.highlightedText]}>Esqueceu a senha?</Text>
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity style={[buttonStyle.area, buttonStyle.main, formStyle.littleSpace]}>
+          <TouchableOpacity
+            accessible
+            accessibilityRole='button'
+            accessibilityLabel='Entrar'
+            accessibilityHint='Toque para entrar na sua conta.'
+            style={[buttonStyle.area, buttonStyle.main, formStyle.littleSpace]}
+          >
             <Text style={[buttonStyle.text]}>Entrar</Text>
           </TouchableOpacity>
 
-          <View style={[formStyle.littleSpace]}>
+          <View accessible accessibilityRole='text' accessibilityLabel='ou' style={[formStyle.littleSpace]}>
             <Text style={[formStyle.text]}>ou</Text>
           </View>
 
-          <TouchableOpacity style={[buttonStyle.area, buttonStyle.alternative, formStyle.bigSpace]}>
-            <Image
-              source={googleLogo}
-              style={[buttonStyle.logo]}
-              contentFit='cover'
-            />
+          <TouchableOpacity
+            accessible
+            accessibilityRole='button'
+            accessibilityLabel='Entrar com Google'
+            accessibilityHint='Toque para entrar com sua conta do Google.'
+            style={[buttonStyle.area, buttonStyle.alternative, formStyle.bigSpace]}
+          >
+            <Image source={googleLogo} style={[buttonStyle.logo]} contentFit='cover' />
             <Text style={[buttonStyle.text]}>Continuar com o google</Text>
           </TouchableOpacity>
 
           <View style={[formStyle.bottomTextArea]}>
-            <Text style={[formStyle.text]}>Não possui conta?</Text>
-            <TouchableOpacity>
+            <Text accessible accessibilityRole='text' accessibilityLabel='Não possui conta?' style={[formStyle.text]}>
+              Não possui conta?
+            </Text>
+            <TouchableOpacity
+              accessible
+              accessibilityRole='button'
+              accessibilityLabel='Criar conta'
+              accessibilityHint='Toque para entrar com sua conta do Google.'
+            >
               <Text style={[formStyle.highlightedText, formStyle.bottomText]}> Criar conta</Text>
             </TouchableOpacity>
           </View>
